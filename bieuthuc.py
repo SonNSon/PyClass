@@ -1,28 +1,26 @@
-# Function to solve each test case
-def solve_expression(expression):
+t = int(input())
+
+def bieuthuc(s):
+    tmp1 = []
+    cnt = 0
     stack = []
-    result = [0] * len(expression)
-    counter = 1
-
-    for i, char in enumerate(expression):
+    for char in s:
         if char == '(':
-            stack.append(i)
+            cnt += 1
+            stack.append(cnt)
+            tmp1.append(cnt)
         elif char == ')':
-            if stack:
-                open_index = stack.pop()
-                result[open_index] = counter
-                result[i] = counter
-                counter += 1
+            tmp1.append(stack.pop())
+    return tmp1
 
-    # Print the result, filtering out non-parenthesis characters
-    print(' '.join(str(result[i]) for i in range(len(expression)) if expression[i] in '()'))
-
-# Main function to handle input and output
-def main():
-    T = int(input())  # Read the number of test cases
-    for _ in range(T):
-        expression = input().strip()  # Read the expression
-        solve_expression(expression)
-
-if __name__ == "__main__":
-    main()
+while t > 0:
+    s = input().strip().replace(' ', '')
+    for char in s:
+        if char.isalnum():
+            s = s.replace(char, '')  
+        elif char in ['+', '-', '*', '/']:
+            s = s.replace(char, '')
+    l = bieuthuc(s)
+    l = ' '.join(str(i) for i in l)
+    print(l)
+    t -= 1
